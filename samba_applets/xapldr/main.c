@@ -273,10 +273,10 @@ static uint32_t handle_cmd_write_pages(uint32_t cmd, uint32_t *mailbox)
 		return APPLET_FAIL;
 	}
 
-    pdst = (void *)(DDR_CS_ADDR + (offset * BLOCK_SIZE));
+    pdst = (void *)((offset * BLOCK_SIZE));
     memcpy(pdst, buffer, length * BLOCK_SIZE);
 
-	trace_info_wp("Wrote %u bytes at offset 0x%08x\r\n",
+	trace_info_wp("Wrote %u bytes at absolute addr 0x%08x\r\n",
 			(unsigned)(mbx->in.length * BLOCK_SIZE),
 			(unsigned)(mbx->in.offset * BLOCK_SIZE));
 	mbx->out.pages = mbx->in.length;
@@ -306,10 +306,10 @@ static uint32_t handle_cmd_read_pages(uint32_t cmd, uint32_t *mailbox)
 		return APPLET_FAIL;
 	}
 
-    psrc = (void *)(DDR_CS_ADDR + (offset * BLOCK_SIZE));
+    psrc = (void *)((offset * BLOCK_SIZE));
     memcpy(buffer, psrc, length * BLOCK_SIZE);
 
-	trace_info_wp("Read %u bytes at offset 0x%08x\r\n",
+	trace_info_wp("Read %u bytes at absolute address 0x%08x\r\n",
 			(unsigned)(mbx->in.length * BLOCK_SIZE),
 			(unsigned)(mbx->in.offset * BLOCK_SIZE));
 	mbx->out.pages = mbx->in.length;
